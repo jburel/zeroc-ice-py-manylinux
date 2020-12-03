@@ -32,10 +32,10 @@ jobs:
             fi
            done
         shell: bash
-      - name: Upload as artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: zeroc_ice-3.6.5-${{ matrix.version }}-manylinux2014_x86_64.whl
+          name: artifacts/zeroc_ice-3.6.5-${{ matrix.version }}-manylinux2014_x86_64.whl
           path: dist/zeroc_ice-3.6.5-${{ matrix.version }}-manylinux2014_x86_64.whl
           if-no-files-found: error
   release:
@@ -51,7 +51,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./*.whl
+          file: artifacts/*
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
